@@ -3,15 +3,39 @@ require('styles/App.css');
 
 import React from 'react';
 
-let yeomanImage = require('../images/yeoman.png');
+let imgData = require('../data/imgdata.json');
+
+imgData = ((imgArr) => {
+  for (let i = 0, j = imgArr.length; i < j; i++ ) {
+    let singleImg = imgArr[i];
+    singleImg.imgUrl = require('../images/' + singleImg.filename);
+    imgArr[i] = singleImg;
+  }
+  return imgArr;
+})(imgData);
+
+class ImgFigure extends React.Component {
+  render () {
+    return (
+      <figure className="img-item">
+        <img src={this.props.data.imgUrl} />
+      </figure>
+    )
+  }
+}
 
 class AppComponent extends React.Component {
   render() {
+    let imgItem = [];
+    imgData.forEach((value, index) => {
+      imgItem.push(<ImgFigure data={value} key={index} />)
+    });
     return (
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
-      </div>
+      <section className="stage">
+        <section className="img-section">
+          {imgItem}
+        </section>
+      </section>
     );
   }
 }

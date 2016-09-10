@@ -1,21 +1,27 @@
 /* Base Application Styles */
-body {
-  color: #fff;
-  background: #222;
+body, html {
+  width: 100%;
+  height: auto;
+  background: #dddddd;
 }
-
-.index img {
-  margin: 40px auto;
-  border-radius: 4px;
-  background: #fff;
-  display: block;
+.stage {
+  position: relative;
+  width: 100%;
+  height: auto;
 }
-
-.index .notice {
-  margin: 20px auto;
-  padding: 15px 0;
-  text-align: center;
-  border: 1px solid #000;
-  border-width: 1px 0;
-  background: #666;
+.img-section {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background: #dddddd;
+}
+.img-item {
+  position: absolute;
+  width: 320px;
+  padding: 40px;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+.img-item img {
+  width: 240px;
 }
