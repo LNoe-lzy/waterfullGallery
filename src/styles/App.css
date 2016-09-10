@@ -1,4 +1,7 @@
 /* Base Application Styles */
+* {
+  transition: all 300ms ease-in;
+}
 body, html {
   width: 100%;
   height: auto;
@@ -16,12 +19,14 @@ body, html {
   background: #dddddd;
 }
 .img-item {
-  position: absolute;
-  width: 320px;
+  /*position: absolute;*/
+  width: 280px;
   padding: 40px;
+  margin: 20px 0 0 20px;
   background: #ffffff;
   box-sizing: border-box;
+  float: left;
 }
 .img-item img {
-  width: 240px;
+  width: 200px;
 }
