@@ -15,6 +15,14 @@ imgData = ((imgArr) => {
   return imgArr;
 })(imgData);
 
+let getMinIndex = (arr, value) => {
+  for (let i of Object.keys(arr)) {
+    if (arr[i] === value) {
+      return i;
+    }
+  }
+};
+
 class ImgFigure extends React.Component {
   constructor (props) {
     super(props);
@@ -34,19 +42,15 @@ class AppComponent extends React.Component {
   constructor (props) {
     super(props);
     this.stageOnload = this.stageOnload.bind(this);
-  }
-
-  getMinIndex (arr, value) {
-    for (let i in arr) {
-      if (arr[i] === value) {
-        return i;
-      }
+    this.state = {
+      imgList: []
     }
   }
 
   stageOnload () {
     // 获取全部的图片元素
-    let imgArray = [];
+    let imgArray = [],
+      heightArr = [];
     let stageDOM = ReactDOM.findDOMNode(this.refs.stage);
     for (let i = 0,j = imgData.length; i < j; i ++) {
       let ref = this.refs['img' + i];
@@ -55,25 +59,27 @@ class AppComponent extends React.Component {
     // 计算整个页面显示的页数
     let stageW = stageDOM.offsetWidth,
       itemW = imgArray[0].offsetWidth,
-      cols = Math.floor(stageW / itemW),
-
-      // 存放列高度的数组
-      heightArr = [];
+      cols = Math.floor(stageW / itemW);
     for (let i = 0, j = imgArray.length; i < j; i++) {
       if (i < cols) {
         heightArr.push(imgArray[i].offsetHeight);
       } else {
         let minH = Math.min.apply(null, heightArr),
-          index = this.getMinIndex(heightArr, minH);
+          index = getMinIndex(heightArr, minH);
         imgArray[i].style.position = 'absolute';
         imgArray[i].style.top = minH + 20 + 'px';
         imgArray[i].style.left = (itemW + 20) * index + 'px';
+        heightArr[index] += imgArray[i].offsetHeight + 20;
       }
     }
   }
+
   render() {
     let imgItem = [];
     imgData.forEach((value, index) => {
+      imgItem.push(<ImgFigure data={value} key={index} ref={'img' + index} />)
+    });
+    this.state.imgList.forEach((value, index) => {
       imgItem.push(<ImgFigure data={value} key={index} ref={'img' + index} />)
     });
     return (
